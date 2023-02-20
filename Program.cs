@@ -1,13 +1,13 @@
-﻿void InputMatrix(double[,] matrix)
+﻿void InputMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
-            matrix[i, j] = new Random().Next(1, 21); // [1, 20]
+            matrix[i, j] = new Random().Next(1, 101); // [1, 20]
     }
 }
 
-void PrintMatrix(double[,] matrix)
+void PrintMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -17,27 +17,27 @@ void PrintMatrix(double[,] matrix)
     }
 }
 
-void ColumnAverage(double[,] matrix){
-    double sum=0;
-    for(int i=0; i<matrix.GetLength(1); i++){
-        for(int j=0; j<matrix.GetLength(0); j++){
-            sum=sum+matrix[j,i];
-            if(j+1==matrix.GetLength(0)){
-                int sumElements=j+1;
-                Console.Write(sum/sumElements+" ");
-                sum=0;
-            }
+void HorisontalTransponation(int[,] matrix){
+    for (int i = 0; i < matrix.GetLength(0)/2; i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++){
+            int temp=matrix[i,j];
+            matrix[i,j]=matrix[matrix.GetLength(0)-i-1, j];
+            matrix[matrix.GetLength(0)-i-1, j]=temp;
         }
-        
-    }
 
+    }
 }
 
 
 Console.Clear();
 Console.Write("Введите размер массива: ");
 int[] size = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
-double[,] matrix = new double[size[0], size[1]];
+int[,] matrix = new int[size[0], size[1]];
 InputMatrix(matrix);
+Console.WriteLine("Начальный массив: ");
 PrintMatrix(matrix);
-ColumnAverage(matrix);
+HorisontalTransponation(matrix);
+Console.WriteLine("Конечный массив: ");
+PrintMatrix(matrix);
+
